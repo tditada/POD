@@ -217,5 +217,104 @@ public class ModelObject implements DataSerializable  {
 	public boolean isResponse() {
 		return response;
 	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
+	public void setReleased(String released) {
+		this.released = released;
+	}
+	public void setRuntime(String runtime) {
+		this.runtime = runtime;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public void setActors(String actors) {
+		this.actors = actors;
+	}
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public void setAwards(String awards) {
+		this.awards = awards;
+	}
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+	public void setMetascore(Double metascore) {
+		this.metascore = metascore;
+	}
+	public void setImdbRating(Double imdbRating) {
+		this.imdbRating = imdbRating;
+	}
+	public void setImdbVotes(Long imdbVotes) {
+		this.imdbVotes = imdbVotes;
+	}
+	public void setImdbId(String imdbId) {
+		this.imdbId = imdbId;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public void setTomatoMeter(Integer tomatoMeter) {
+		this.tomatoMeter = tomatoMeter;
+	}
+	public void setTomatoRating(Double tomatoRating) {
+		this.tomatoRating = tomatoRating;
+	}
+	public void setTomatoReviews(Integer tomatoReviews) {
+		this.tomatoReviews = tomatoReviews;
+	}
+	public void setTomatoFresh(Integer tomatoFresh) {
+		this.tomatoFresh = tomatoFresh;
+	}
+	public void setTomatoRotten(Integer tomatoRotten) {
+		this.tomatoRotten = tomatoRotten;
+	}
+	public void setTomatoConsensus(String tomatoConsensus) {
+		this.tomatoConsensus = tomatoConsensus;
+	}
+	public void setTomatoUserMeter(Integer tomatoUserMeter) {
+		this.tomatoUserMeter = tomatoUserMeter;
+	}
+	public void setTomatoUserRating(Double tomatoUserRating) {
+		this.tomatoUserRating = tomatoUserRating;
+	}
+	public void setTomatoUserReviews(Integer tomatoUserReviews) {
+		this.tomatoUserReviews = tomatoUserReviews;
+	}
+	public void setDvd(String dvd) {
+		this.dvd = dvd;
+	}
+	public void setBoxOffice(String boxOffice) {
+		this.boxOffice = boxOffice;
+	}
+	public void setProduction(String production) {
+		this.production = production;
+	}
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	public void setResponse(boolean response) {
+		this.response = response;
+	}
 	
 }
