@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.hazelcast.core.IMap;
 
 public class ModelObjectReader {
 	
@@ -32,7 +33,13 @@ public class ModelObjectReader {
 		
         List<ModelObject> modelObjectList = sGson.fromJson(reader, listType);
         modelObjectList.removeAll(Collections.singleton(null));
-
+        
+        //luego agregar cuando este el imap
+//        for (ModelObject o : modelObjectList) {
+//        	if (o != null)
+//        		theIMap.set(o.getTitle(), o);
+//        }
+//
         ModelObject m = modelObjectList.get(0);
         System.out.println(m.toString());
         List<String> l = m.getActorsList();
@@ -46,6 +53,8 @@ public class ModelObjectReader {
         ModelObject m3 = modelObjectList.get(2);
         System.out.println(m3.toString());
         List<String> l2 = m3.getActorsList();
+        
+        System.out.println(modelObjectList.get(33));
         
 		
 	}
