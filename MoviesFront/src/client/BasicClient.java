@@ -86,7 +86,7 @@ public class BasicClient {
 		ICompletableFuture<Map<String, FormulaAvgTupla>> future = job 
 				.mapper(new BasicMapper()) 
 				.reducer(new BasicReducer())
-				.submit(); 
+				.submit(); //aca metemos new collator 
 
 		// Tomar resultado e Imprimirlo
 		Map<String, FormulaAvgTupla> rta = future.get();

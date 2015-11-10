@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="/Users/Val/Documents/POD-TP/hazelcast-all-3.5.2.jar"/>
 	<classpathentry kind="lib" path="/Users/Val/Documents/POD-TP/super-csv-2.3.1.jar"/>
 	<classpathentry kind="lib" path="/Users/Val/Documents/POD-TP/back.jar"/>
+	<classpathentry kind="lib" path="/Users/Val/Documents/POD-TP/gson-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

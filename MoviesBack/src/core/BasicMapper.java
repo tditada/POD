@@ -20,6 +20,7 @@ public class BasicMapper implements Mapper<String, Votacion, String, FormulaTupl
 
 		System.out.println(String.format("Se emite (%s, %s)", 
 				valueinput.getDistrito(), valueoutput));
+		
 	}
 }
 
