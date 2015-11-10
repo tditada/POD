@@ -1,7 +1,6 @@
 package model;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,8 +60,8 @@ public class ModelObject implements DataSerializable  {
 	@Override
 	public void readData(ObjectDataInput in) throws IOException {
 		this.title = in.readUTF();
-		this.startYear = in.readInt();
 		this.year = in.readInt();
+		this.startYear = in.readInt();
 		this.endYear = in.readInt();
 		this.rated = in.readUTF();
 		this.released = in.readUTF();
@@ -83,56 +82,62 @@ public class ModelObject implements DataSerializable  {
 		this.type = in.readUTF();
 		this.tomatoMeter = in.readInt();
 		this.tomatoImage = in.readUTF();
-		this.tomatoRating = in.readDouble();
-		this.tomatoReviews = in.readInt();
-		this.tomatoFresh = in.readInt();
-		this.tomatoRotten = in.readInt();
-		this.tomatoConsensus = in.readUTF();
-		this.tomatoUserMeter = in.readInt();
-		this.tomatoUserRating = in.readDouble();
-		this.tomatoUserReviews = in.readInt();
-		this.dvd = in.readUTF();
-		this.boxOffice = in.readUTF();
-		this.production = in.readUTF();
-		this.website = in.readUTF();
-		this.response = in.readBoolean();
+//		this.tomatoRating = in.readDouble();
+//		this.tomatoReviews = in.readInt();
+//		this.tomatoFresh = in.readInt();
+//		this.tomatoRotten = in.readInt();
+//		this.tomatoConsensus = in.readUTF();
+//		this.tomatoUserMeter = in.readInt();
+//		this.tomatoUserRating = in.readDouble();
+//		this.tomatoUserReviews = in.readInt();
+//		this.dvd = in.readUTF();
+//		this.boxOffice = in.readUTF();
+//		this.production = in.readUTF();
+//		this.website = in.readUTF();
+//		this.response = in.readBoolean();
 		
 	}
 	@Override
 	public void writeData(ObjectDataOutput out) throws IOException {
-//		out.readUTF();
-//		out.readInt();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readDouble();
-//		out.readDouble();
-//		out.readLong();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readInt();
-//		out.readDouble();
-//		out.readInt();
-//		out.readInt();
-//		out.readInt();
-//		out.readUTF();
-//		out.readInt();
-//		out.readDouble();
-//		out.readInt();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readUTF();
-//		out.readBoolean();
+		out.writeUTF(title);
+		out.writeInt(year);
+		out.writeInt(startYear);
+		out.writeInt(endYear);
+		out.writeUTF(rated);
+		out.writeUTF(released);
+		out.writeUTF(runtime);
+		out.writeUTF(genre);
+		out.writeUTF(director);
+		out.writeUTF(writer);
+		out.writeUTF(actors);
+		out.writeUTF(plot);
+		out.writeUTF(language);
+		out.writeUTF(country);
+		out.writeUTF(awards);
+		out.writeUTF(poster);
+		out.writeDouble(metascore);
+		out.writeDouble(imdbRating);
+		out.writeLong(imdbVotes);
+		out.writeUTF(imdbId);
+		out.writeUTF(type);
+		out.writeInt(tomatoMeter);
+		out.writeUTF(tomatoImage);
+		
+//		out.writeDouble(tomatoRating);
+//		out.writeInt(tomatoReviews);
+//		out.writeInt(tomatoFresh);
+//		out.writeInt(tomatoRotten);
+//		out.writeUTF(tomatoConsensus);
+//		out.writeInt(tomatoUserMeter);
+//		out.writeDouble
+//		
+//		this.tomatoUserRating = in.readDouble();
+//		this.tomatoUserReviews = in.readInt();
+//		this.dvd = in.readUTF();
+//		this.boxOffice = in.readUTF();
+//		this.production = in.readUTF();
+//		this.website = in.readUTF();
+//		this.response = in.readBoolean();
 		
 	}
 	public String getTitle() {
