@@ -21,13 +21,19 @@ public class ModelObjectDeserializer implements JsonDeserializer<ModelObject>{
 		
 		final JsonObject jsonObject = json.getAsJsonObject();
 		
+		String type = jsonObject.get("Type").getAsString();
+		if (type.equals(ModelObject.TYPE_SERIE)) {
+			return null;
+		}
+		
 		String title = jsonObject.get("Title").getAsString();
 		
+		Integer year = ModelObject.INVALID_YEAR;
 		Integer startYear = ModelObject.INVALID_YEAR;
 		Integer endYear = ModelObject.INVALID_YEAR;
 		if (!jsonObject.get("Year").getAsString().equals(ModelObject.NOT_A_VALUE)) {
 			try {
-				startYear = jsonObject.get("Year").getAsInt();
+				year = jsonObject.get("Year").getAsInt();
 			} catch (NumberFormatException e) {
 				String s = jsonObject.get("Year").getAsString();
 				List<String> yearList = Arrays.asList(s.split("–"));
@@ -56,8 +62,39 @@ public class ModelObjectDeserializer implements JsonDeserializer<ModelObject>{
 			metascore = jsonObject.get("Metascore").getAsDouble();
 		}
 		
+		Double imdbRating = ModelObject.INVALID_IMDB_RATING;
+		if (!jsonObject.get("imdbRating").getAsString().equals(ModelObject.NOT_A_VALUE)) {
+			imdbRating = jsonObject.get("imdbRating").getAsDouble();
+		}
+		
+		Long imdbVotes = ModelObject.INVALID_IMDB_VOTES;
+		if (!jsonObject.get("imdbVotes").getAsString().equals(ModelObject.NOT_A_VALUE)) {
+			try {
+				imdbVotes = jsonObject.get("imdbVotes").getAsLong();
+			} catch (NumberFormatException e) {
+				String s = jsonObject.get("imdbVotes").getAsString();
+				List<String> numbers = Arrays.asList(s.split(","));
+				Long aux = 0L;
+				for (int i = 0; i < numbers.size(); i++) {
+					int a = (int) Math.pow(1000.0, numbers.size() - 1.0 - i);
+					aux += Long.valueOf(numbers.get(i)) * Long.valueOf(a);
+				}
+				imdbVotes = aux;
+			}
+		}
+		
+		String imdbID = jsonObject.get("imdbID").getAsString();
+		
+		Integer tomatoMeter = ModelObject.INVALID_TOMATO_METER;
+		if (!jsonObject.get("tomatoMeter").getAsString().equals(ModelObject.NOT_A_VALUE)) {
+			tomatoMeter = jsonObject.get("tomatoMeter").getAsInt();
+		}
+		
+		String tomatoImage = jsonObject.get("tomatoImage").getAsString();
+		
 		ModelObject o = new ModelObject();
 		o.setTitle(title);
+		o.setYear(year);
 		o.setStartYear(startYear);
 		o.setEndYear(endYear);
 		o.setRated(rated);
@@ -73,6 +110,12 @@ public class ModelObjectDeserializer implements JsonDeserializer<ModelObject>{
 		o.setAwards(awards);
 		o.setPoster(poster);
 		o.setMetascore(metascore);
+		o.setImdbRating(imdbRating);
+		o.setImdbVotes(imdbVotes);
+		o.setImdbId(imdbID);
+		o.setType(type);
+		o.setTomatoMeter(tomatoMeter);
+		o.setTomatoImage(tomatoImage);
 		return o;
 	}
 

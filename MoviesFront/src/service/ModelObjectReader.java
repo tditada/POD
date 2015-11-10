@@ -1,11 +1,10 @@
 package service;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 import model.ModelObject;
 
@@ -32,17 +31,22 @@ public class ModelObjectReader {
 		Type listType = new TypeToken<ArrayList<ModelObject>>() {}.getType();
 		
         List<ModelObject> modelObjectList = sGson.fromJson(reader, listType);
-        
+        modelObjectList.removeAll(Collections.singleton(null));
+
         ModelObject m = modelObjectList.get(0);
         System.out.println(m.toString());
+        List<String> l = m.getActorsList();
         
         System.out.println("");
         ModelObject m2 = modelObjectList.get(1);
         System.out.println(m2.toString());
+        List<String> l1 =  m2.getActorsList();
         
         System.out.println("");
         ModelObject m3 = modelObjectList.get(2);
         System.out.println(m3.toString());
+        List<String> l2 = m3.getActorsList();
+        
 		
 	}
 

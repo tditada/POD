@@ -1,6 +1,8 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.hazelcast.nio.ObjectDataInput;
@@ -9,11 +11,17 @@ import com.hazelcast.nio.serialization.DataSerializable;
 
 public class ModelObject implements DataSerializable  {
 	
+	public static final String TYPE_MOVIE = "movie";
+	public static final String TYPE_SERIE = "series";
 	public static final String NOT_A_VALUE = "N/A";
 	public static final Integer INVALID_YEAR = 0;
-	public static final Double INVALID_METASCORE = -1.0;
+	public static final Double INVALID_METASCORE = 0.0;
+	public static final Double INVALID_IMDB_RATING = 0.0;
+	public static final Long INVALID_IMDB_VOTES = 0L;
+	public static final Integer INVALID_TOMATO_METER = 0;
 	
 	private String title;
+	private Integer year;
 	private Integer startYear;
 	private Integer endYear;
 	private String rated;
@@ -34,6 +42,7 @@ public class ModelObject implements DataSerializable  {
 	private String imdbId;
 	private String type;
 	private Integer tomatoMeter;
+	private String tomatoImage;
 	private Double tomatoRating;
 	private Integer tomatoReviews;
 	private Integer tomatoFresh;
@@ -53,6 +62,7 @@ public class ModelObject implements DataSerializable  {
 	public void readData(ObjectDataInput in) throws IOException {
 		this.title = in.readUTF();
 		this.startYear = in.readInt();
+		this.year = in.readInt();
 		this.endYear = in.readInt();
 		this.rated = in.readUTF();
 		this.released = in.readUTF();
@@ -72,6 +82,7 @@ public class ModelObject implements DataSerializable  {
 		this.imdbId = in.readUTF();
 		this.type = in.readUTF();
 		this.tomatoMeter = in.readInt();
+		this.tomatoImage = in.readUTF();
 		this.tomatoRating = in.readDouble();
 		this.tomatoReviews = in.readInt();
 		this.tomatoFresh = in.readInt();
@@ -126,6 +137,9 @@ public class ModelObject implements DataSerializable  {
 	}
 	public String getTitle() {
 		return title;
+	}
+	public Integer getYear() {
+		return year;
 	}
 	public Integer getStartYear() {
 		return startYear;
@@ -187,6 +201,9 @@ public class ModelObject implements DataSerializable  {
 	public Integer getTomatoMeter() {
 		return tomatoMeter;
 	}
+	public String getTomatoImage() {
+		return tomatoImage;
+	}
 	public Double getTomatoRating() {
 		return tomatoRating;
 	}
@@ -228,6 +245,9 @@ public class ModelObject implements DataSerializable  {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 	public void setStartYear(Integer year) {
 		this.startYear = year;
@@ -289,6 +309,9 @@ public class ModelObject implements DataSerializable  {
 	public void setTomatoMeter(Integer tomatoMeter) {
 		this.tomatoMeter = tomatoMeter;
 	}
+	public void setTomatoImage(String tomatoImage) {
+		this.tomatoImage = tomatoImage;
+	}
 	public void setTomatoRating(Double tomatoRating) {
 		this.tomatoRating = tomatoRating;
 	}
@@ -336,6 +359,9 @@ public class ModelObject implements DataSerializable  {
 			.append("TITLE: ")
 			.append(title)
 			.append('\n')
+			.append("YEAR: ")
+			.append(year)
+			.append('\n')
 			.append("START YEAR: ")
 			.append(startYear)
 			.append('\n')
@@ -378,9 +404,35 @@ public class ModelObject implements DataSerializable  {
 			.append("POSTER: ")
 			.append(poster)
 			.append('\n')
+			.append("METASCORE: ")
+			.append(metascore)
+			.append('\n')
+			.append("IMDB RATING: ")
+			.append(imdbRating)
+			.append('\n')
+			.append("IMDB VOTES: ")
+			.append(imdbVotes)
+			.append('\n')
+			.append("IMDB ID: ")
+			.append(imdbId)
+			.append('\n')
+			.append("TYPE: ")
+			.append(type)
+			.append('\n')
+			.append("TOMATO METER: ")
+			.append(tomatoMeter)
+			.append('\n')
+			.append("TOMATO IMAGE: ")
+			.append(tomatoImage)
+			.append('\n')
 			;
 		return builder.toString();
 				
+	}
+	
+	public List<String> getActorsList() {
+		List<String> list = Arrays.asList(this.actors.split("\\s*,\\s*"));
+		return list;
 	}
 	
 }
