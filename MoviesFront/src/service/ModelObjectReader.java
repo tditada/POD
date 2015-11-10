@@ -28,22 +28,21 @@ public class ModelObjectReader {
 					.create();
 
 		JsonReader reader = new JsonReader(new FileReader("../resources/imdb-20K.json"));
-//		Scanner testScanner = new Scanner(new BufferedReader(new FileReader("../resources/imdb-20K.json")));
-//		while (testScanner.hasNextLine())
-//		{
-//		    System.out.println(testScanner.nextLine());
-//		}
 		
 		Type listType = new TypeToken<ArrayList<ModelObject>>() {}.getType();
 		
         List<ModelObject> modelObjectList = sGson.fromJson(reader, listType);
-//        
-        ModelObject m = modelObjectList.get(0);
-        System.out.println(m.getTitle());
         
-
+        ModelObject m = modelObjectList.get(0);
+        System.out.println(m.toString());
+        
+        System.out.println("");
         ModelObject m2 = modelObjectList.get(1);
-        System.out.println(m2.getTitle());
+        System.out.println(m2.toString());
+        
+        System.out.println("");
+        ModelObject m3 = modelObjectList.get(2);
+        System.out.println(m3.toString());
 		
 	}
 
