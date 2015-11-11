@@ -20,7 +20,7 @@ public class ModelObjectReader {
 	//primer parametro IMap<String, ModelObject> theIMap, 
 	public static void readModelObject(String filename) throws Exception
 	{
-		
+		long inicio = System.currentTimeMillis();
 		Gson sGson = new GsonBuilder()
 					.serializeNulls()
 					.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -40,7 +40,15 @@ public class ModelObjectReader {
 //        		theIMap.set(o.getTitle(), o);
 //        }
 //
-        ModelObject m = modelObjectList.get(0);
+        
+		long fin = System.currentTimeMillis();
+		System.out.println(fin - inicio);
+		//40k --> 187
+		//200k --> 198
+		//20 k --> 1036
+
+
+		ModelObject m = modelObjectList.get(0);
         System.out.println(m.toString());
         List<String> l = m.getActorsList();
         
@@ -54,7 +62,7 @@ public class ModelObjectReader {
         System.out.println(m3.toString());
         List<String> l2 = m3.getActorsList();
         
-        System.out.println(modelObjectList.get(33));
+//        System.out.println(modelObjectList.get(33));
         
 		
 	}
