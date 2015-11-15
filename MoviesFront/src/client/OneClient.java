@@ -1,5 +1,8 @@
 package client;
 
+import java.awt.font.NumericShaper;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -27,6 +30,7 @@ public class OneClient {
 
 	private static final String MAP_NAME = "first_query";
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws InterruptedException, ExecutionException 
 	{
 //		String name= System.getProperty("name");
@@ -57,16 +61,80 @@ public class OneClient {
 //
 //		System.out.println(client.getCluster() );
 
-
-
+		// Lectura de parametros de entrada
+		String firstParam = args[0];
+		int query = 0;
+		int n = 0;
+		int tope = 0;
+		String path = null;
+		List<String> comandQuery = Arrays.asList(firstParam.split("="));
+		if (!parseComand(comandQuery.get(0), "query", "invalid first param"))
+			return;
+		try {
+			query = Integer.valueOf(comandQuery.get(1));
+			if (query < 1 || query > 4) {
+				System.out.println("invalid param query");
+				return;
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("invalid param query");
+			return;
+		}
+		String secondParam = args[1];
+		List<String> comandSecondParam = Arrays.asList(secondParam.split("="));
+		if (query == 1) {
+			if (!parseComand(comandSecondParam.get(0), "n", "invalid second param"))
+				return;
+			try {
+				n = Integer.valueOf(comandSecondParam.get(1));
+			} catch (NumberFormatException e) {
+				System.out.println("invalid param N");
+				return;
+			}
+			String thirdParam = null;
+			if (args.length != 3) {
+				System.out.println("invalid params");
+				return;
+			}
+			thirdParam = args[2];
+			List<String> comandThirdParam = Arrays.asList(thirdParam.split("="));
+			if (!parseComand(comandThirdParam.get(0), "path", "invalid third param"))
+				return;
+			path = comandThirdParam.get(1);
+		} else if (query == 2) {
+			if (!parseComand(comandSecondParam.get(0), "tope", "invalid second param"))
+				return;
+			try {
+				tope = Integer.valueOf(comandSecondParam.get(1));
+			} catch (NumberFormatException e) {
+				System.out.println("invalid param tope");
+				return;
+			}
+			String thirdParam = null;
+			if (args.length != 3) {
+				System.out.println("invalid params");
+				return;
+			}
+			thirdParam = args[2];
+			List<String> comandThirdParam = Arrays.asList(thirdParam.split("="));
+			if (!parseComand(comandThirdParam.get(0), "path", "invalid third param"))
+				return;
+			path = comandThirdParam.get(1);
+		} else {
+			if (!parseComand(comandSecondParam.get(0), "path", "invalid second param"))
+				return;
+			path = comandSecondParam.get(1);
+		}
+		
+		if (args.length > 3) 
+			System.out.println("invalid params");
 
 //		// Preparar la particion de datos y distribuirla en el cluster a trav�s del IMap
 //		IMap<String, ModelObject> myMap = client.getMap(MAP_NAME);
 
 		try 
 		{
-			String filename = "";
-			ModelObjectReader.readModelObject(filename);
+			ModelObjectReader.readModelObject(path);
 		} 
 		catch (Exception e) 
 		{
@@ -100,4 +168,14 @@ public class OneClient {
 //		System.exit(0);
 
 	}
+	
+	private static boolean parseComand(String s, String comand, String errorMessage) {
+		if (!s.equals(comand)) {
+			System.out.println(errorMessage);
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

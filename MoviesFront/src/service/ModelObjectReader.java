@@ -27,7 +27,7 @@ public class ModelObjectReader {
 					.registerTypeAdapter(ModelObject.class, new ModelObjectDeserializer())
 					.create();
 
-		JsonReader reader = new JsonReader(new FileReader("../resources/imdb-20K.json"));
+		JsonReader reader = new JsonReader(new FileReader(filename));
 		
 		Type listType = new TypeToken<ArrayList<ModelObject>>() {}.getType();
 		
