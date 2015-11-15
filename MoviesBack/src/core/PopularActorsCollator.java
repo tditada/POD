@@ -24,13 +24,15 @@ public class PopularActorsCollator implements Collator<Entry<String, Actor>, Lis
 
 	@Override
 	public List<String> collate(Iterable<Entry<String, Actor>> values) {
-		Iterator iterator = values.iterator();
+		LinkedList<String> result = new LinkedList<>();
+		Iterator<Entry<String, Actor>> iterator = values.iterator();
 		if (iterator.hasNext()) {
-			Actor a = (Actor) iterator.next();
+			Entry<String, Actor> a = iterator.next();
 			//vemos si lo guardamos en la lista o no
 		}
 		//lista con nombres de actores
-		return new LinkedList<>();
+		result.add("holis");
+		return result;
 	}
 
 
