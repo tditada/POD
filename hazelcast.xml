@@ -63,7 +63,8 @@
             </aws>
         </join>
         <interfaces enabled="true">
-            <interface>10.6.0.*</interface>
+            <!-- cambiar a 10.6.0.* -->
+            <interface>10.254.56.*</interface>
         </interfaces>
         <ssl enabled="false"/>
         <socket-interceptor enabled="false"/>

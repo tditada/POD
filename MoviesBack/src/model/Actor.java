@@ -13,6 +13,9 @@ public class Actor implements DataSerializable {
 	private String name;
 	private Long votes;
 	
+	public Actor() {
+		
+	}
 	
 	public Actor(String name, Long votes) {
 		super();
@@ -33,15 +36,15 @@ public class Actor implements DataSerializable {
 	}
 	
 	@Override
-	public void readData(ObjectDataInput arg0) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void readData(ObjectDataInput in) throws IOException {
+		this.name = in.readUTF();
+		this.votes = in.readLong();
 	}
 
 	@Override
-	public void writeData(ObjectDataOutput arg0) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void writeData(ObjectDataOutput out) throws IOException {
+		out.writeUTF(name);
+		out.writeLong(votes);
 	}
 	
 	
