@@ -3,6 +3,7 @@ package client;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
@@ -163,17 +164,20 @@ public class OneClient {
 
 		// Tomar resultado e Imprimirlo
 //		Map<String, Actor> rta = future.get();
-//
+////
 //		for (Entry<String, Actor> e : rta.entrySet()) 
 //		{
-//			System.out.println(String.format("Distrito %s => Ganador %s",
+//			System.out.println(String.format("Actor %s =>  %s",
 //					e.getKey(), e.getValue() ));
 //		}
-//
-		for (String s: future.get()) {
+//	
+		List<String> l  = future.get();
+		System.out.println("resultados");
+		for (String s: l) {
 			System.out.println(s);
 			System.out.println('\n');
 		}
+		
 		System.exit(0);
 
 	}

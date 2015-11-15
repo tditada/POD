@@ -1,18 +1,19 @@
 package core;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import utils.FixedPriorityQueue;
 import model.Actor;
 
-import com.hazelcast.map.impl.MapEntrySimple;
 import com.hazelcast.mapreduce.Collator;
 
 //revisar si recibe el map
-public class PopularActorsCollator implements Collator<Entry<String, Actor>, List<String>> {
+public class PopularActorsCollator implements Collator<Map.Entry<String, Actor>, List<String>> {
 	
 	private int amount;
 	private List<Actor> result;
@@ -23,16 +24,21 @@ public class PopularActorsCollator implements Collator<Entry<String, Actor>, Lis
 	}
 
 	@Override
-	public List<String> collate(Iterable<Entry<String, Actor>> values) {
-		LinkedList<String> result = new LinkedList<>();
-		Iterator<Entry<String, Actor>> iterator = values.iterator();
-		if (iterator.hasNext()) {
-			Entry<String, Actor> a = iterator.next();
-			//vemos si lo guardamos en la lista o no
+	public List<String> collate(Iterable<Map.Entry<String, Actor>> values) {
+		System.out.println("amount");
+		System.out.println(amount);
+		FixedPriorityQueue<Actor> queue = new FixedPriorityQueue<>(amount);
+		
+		for (Map.Entry<String, Actor> entry: values) {
+			queue.add(entry.getValue());
 		}
-		//lista con nombres de actores
-		result.add("holis");
-		return result;
+		
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < amount; i++) {
+			list.add(queue.poll().toString());
+		}
+		System.out.println("lista del collate size: "+list.size());
+		return list;
 	}
 
 

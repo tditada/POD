@@ -8,7 +8,7 @@ import com.hazelcast.nio.serialization.DataSerializable;
 
 
 //revisar si va dataserializable
-public class Actor implements DataSerializable {
+public class Actor implements DataSerializable, Comparable<Actor> {
 	
 	private String name;
 	private Long votes;
@@ -46,7 +46,18 @@ public class Actor implements DataSerializable {
 		out.writeUTF(name);
 		out.writeLong(votes);
 	}
+
+	@Override
+	public int compareTo(Actor o) {
+		if (this.votes.compareTo(o.getVotes()) == 0) {
+			return o.getName().compareTo(this.getName());
+		}
+		return this.votes.compareTo(o.getVotes());
+	}
 	
-	
+	@Override
+	public String toString() {
+		return this.name.toString() + " " + String.valueOf(this.votes);
+	}
 
 }

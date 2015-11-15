@@ -2,7 +2,6 @@ package core;
 
 import java.util.List;
 
-import utils.StringUtils;
 import model.ModelObject;
 
 import com.hazelcast.mapreduce.Context;
@@ -25,7 +24,7 @@ public class PopularActorsMapper implements Mapper<String, ModelObject, String, 
 		
 		Long votes = valueinput.getImdbVotes();
 		if (valueinput.getType().equals(ModelObject.TYPE_MOVIE)) {
-			List<String> actors = StringUtils.separateActors(valueinput.getActors());
+			List<String> actors = valueinput.getActorsList();
 			for (String actor: actors) {
 				context.emit(actor, votes);	
 				System.out.println(String.format("Se emite (%s, %d)", 
