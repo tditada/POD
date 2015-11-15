@@ -3,19 +3,17 @@ package client;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
-import model.Actor;
 import model.ModelObject;
+import model.PopularMetascoreMovie;
 import service.ModelObjectReader;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.client.config.ClientNetworkConfig;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.ICompletableFuture;
 import com.hazelcast.core.IMap;
 import com.hazelcast.mapreduce.Job;
 import com.hazelcast.mapreduce.JobCompletableFuture;
@@ -25,6 +23,8 @@ import com.hazelcast.mapreduce.KeyValueSource;
 import core.PopularActorsCollator;
 import core.PopularActorsMapper;
 import core.PopularActorsReducer;
+import core.PopularMetascoreMapper;
+import core.PopularMetascoreReducer;
 
 
 public class OneClient {
@@ -157,25 +157,40 @@ public class OneClient {
 		
 		
 		//para la primer query
-		JobCompletableFuture<List<String>> future = job 
-				.mapper(new PopularActorsMapper()) 
-				.reducer(new PopularActorsReducer())
-				.submit(new PopularActorsCollator(n)); //aca metemos new collator 
+		if (query == 1) {
+			long inicio = System.currentTimeMillis();
+			System.out.println("Inicio del trabajo map/reduce: " + String.valueOf(inicio));
+			
+			JobCompletableFuture<List<String>> future = job 
+					.mapper(new PopularActorsMapper()) 
+					.reducer(new PopularActorsReducer())
+					.submit(new PopularActorsCollator(n)); //aca metemos new collator 
 
-		// Tomar resultado e Imprimirlo
-//		Map<String, Actor> rta = future.get();
-////
-//		for (Entry<String, Actor> e : rta.entrySet()) 
-//		{
-//			System.out.println(String.format("Actor %s =>  %s",
-//					e.getKey(), e.getValue() ));
-//		}
-//	
-		List<String> l  = future.get();
-		System.out.println("resultados");
-		for (String s: l) {
-			System.out.println(s);
-			System.out.println('\n');
+			List<String> l  = future.get();
+			System.out.println("resultados");
+			for (String s: l) {
+				System.out.println(s);
+				System.out.println('\n');
+			}
+			long fin = System.currentTimeMillis();
+			System.out.println("Fin del trabajo map/reduce: " + String.valueOf(fin));
+			System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
+
+		} else if (query == 2) {
+			JobCompletableFuture<Map<Integer, PopularMetascoreMovie>> future2 = job
+					.mapper(new PopularMetascoreMapper(tope))
+					.reducer(new PopularMetascoreReducer())
+					.submit();
+
+			//Tomar resultado e Imprimirlo
+			Map<Integer, PopularMetascoreMovie> rta = future2.get();
+
+			for (Entry<Integer, PopularMetascoreMovie> e : rta.entrySet()) 
+			{
+				System.out.println(String.format("Year %d =>  %s",
+						e.getKey(), e.getValue() ));
+			}
+
 		}
 		
 		System.exit(0);
