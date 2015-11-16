@@ -21,9 +21,8 @@ public class PopularActorsMapper implements Mapper<String, ModelObject, String, 
 //		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
 //				keyinput, valueinput));
 
-		
-		Long votes = valueinput.getImdbVotes();
 		if (valueinput.getType().equals(ModelObject.TYPE_MOVIE)) {
+			Long votes = valueinput.getImdbVotes();
 			List<String> actors = valueinput.getActorsList();
 			for (String actor: actors) {
 				context.emit(actor, votes);	
@@ -31,7 +30,6 @@ public class PopularActorsMapper implements Mapper<String, ModelObject, String, 
 						actor, votes));
 			}
 		}
-
 	}
 
 }

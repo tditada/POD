@@ -2,8 +2,10 @@ package service;
 
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import model.ModelObject;
@@ -17,11 +19,10 @@ import com.hazelcast.core.IMap;
 
 public class ModelObjectReader {
 	
-	//primer parametro IMap<String, ModelObject> theIMap, 
 	public static void readModelObject(IMap<String, ModelObject> theIMap, String filename) throws Exception
 	{
 		long inicio = System.currentTimeMillis();
-		System.out.println("Inicio de la lectura del archivo: " + String.valueOf(inicio));
+		printTimestamp(inicio, "Inicio de la lectura del archivo: ");
 
 		Gson sGson = new GsonBuilder()
 					.serializeNulls()
@@ -34,40 +35,24 @@ public class ModelObjectReader {
 		Type listType = new TypeToken<ArrayList<ModelObject>>() {}.getType();
 		
         List<ModelObject> modelObjectList = sGson.fromJson(reader, listType);
-        modelObjectList.removeAll(Collections.singleton(null));
         
-        //luego agregar cuando este el imap
         for (ModelObject o : modelObjectList) {
         	if (o != null)
         		theIMap.set(o.getTitle(), o);
         }
-//
         
 		long fin = System.currentTimeMillis();
-		System.out.println("Fin de la lectura del archivo: " + String.valueOf(fin));
-		System.out.println("Tiempo de lectura del archivo: " + String.valueOf(fin - inicio));
-		//40k --> 187
-		//200k --> 198
-		//20 k --> 1036
-
-
-//		ModelObject m = modelObjectList.get(0);
-//        System.out.println(m.toString());
-//        List<String> l = m.getActorsList();
-//        
-//        System.out.println("");
-//        ModelObject m2 = modelObjectList.get(1);
-//        System.out.println(m2.toString());
-//        List<String> l1 =  m2.getActorsList();
-//        
-//        System.out.println("");
-//        ModelObject m3 = modelObjectList.get(2);
-//        System.out.println(m3.toString());
-//        List<String> l2 = m3.getActorsList();
-        
-//        System.out.println(modelObjectList.get(33));
-        
-		
+		printTimestamp(fin, "Fin de la lectura del archivo: ");
+		System.out.println("Tiempo de lectura del archivo en milisegundos: " + String.valueOf(fin - inicio));
+		System.out.println('\n');
 	}
 
+	private static void printTimestamp(long timestamp, String message) {
+		Timestamp stamp = new Timestamp(timestamp);
+		Date date = new Date(stamp.getTime());
+		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSSS");
+		String formattedTime = output.format(date);
+		System.out.println(message + formattedTime);
+		System.out.println('\n');
+	}
 }

@@ -18,18 +18,21 @@ public class CoupleActorsMapper implements Mapper<String, ModelObject, String, A
 
 	@Override
 	public void map(String keyinput, ModelObject valueinput, Context<String, ActorsCouple> context) {
-//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
-//				keyinput, valueinput));
-		
-		List<String> list = valueinput.getActorsList();
-		List<String> combinations = combinations(list);
-		
-		for (String couple: combinations) {
-			ActorsCouple c = new ActorsCouple(couple, 0);
-			c.addMovie(valueinput.getTitle());
-			context.emit(couple, c);
-			System.out.println(String.format("Se emite (%s, %s)", 
-					couple, valueinput.getTitle()));
+		//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
+		//				keyinput, valueinput));
+
+		if (valueinput.getType().equals(ModelObject.TYPE_MOVIE)) {
+
+			List<String> list = valueinput.getActorsList();
+			List<String> combinations = combinations(list);
+
+			for (String couple: combinations) {
+				ActorsCouple c = new ActorsCouple(couple, 0);
+				c.addMovie(valueinput.getTitle());
+				context.emit(couple, c);
+				System.out.println(String.format("Se emite (%s, %s)", 
+						couple, valueinput.getTitle()));
+			}
 		}
 	}
 	

@@ -22,15 +22,17 @@ public class PopularMetascoreMapper implements Mapper<String, ModelObject, Integ
 	@Override
 	public void map(String keyinput, ModelObject valueinput, Context<Integer, Movie> context) {
 
-//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
-//				keyinput, valueinput));
+		//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
+		//				keyinput, valueinput));
 
-		int year = valueinput.getYear();
-		if (year > maxYear) {
-			Movie movie = new Movie(valueinput.getTitle(), valueinput.getMetascore(), year);
-			context.emit(year, movie);
-			System.out.println(String.format("Se emite (year %d, %s)",
-					year, movie.getTitle()));
+		if (valueinput.getType().equals(ModelObject.TYPE_MOVIE)) {
+			int year = valueinput.getYear();
+			if (year > maxYear) {
+				Movie movie = new Movie(valueinput.getTitle(), valueinput.getMetascore(), year);
+				context.emit(year, movie);
+				System.out.println(String.format("Se emite (year %d, %s)",
+						year, movie.getTitle()));
+			}
 		}
 	}
 

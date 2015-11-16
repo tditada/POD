@@ -17,11 +17,13 @@ public class DirectorsFavoritesMapper implements Mapper<String, ModelObject, Str
 	@Override
 	public void map(String keyValue, ModelObject inputValue, Context<String, String> context) {
 
-		List<String> actors = inputValue.getActorsList();
-		for (String actor: actors) {
-			context.emit(inputValue.getDirector(), actor);	
-			System.out.println(String.format("Se emite (%s, %s)", 
-					inputValue.getDirector(), actor));
+		if (inputValue.getType().equals(ModelObject.TYPE_MOVIE)) {
+			List<String> actors = inputValue.getActorsList();
+			for (String actor: actors) {
+				context.emit(inputValue.getDirector(), actor);	
+				System.out.println(String.format("Se emite (%s, %s)", 
+						inputValue.getDirector(), actor));
+			}
 		}
 	}
 

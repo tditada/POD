@@ -1,6 +1,9 @@
 package client;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -94,7 +97,7 @@ public class OneClient {
 
 		// Orquestacion de Jobs y lanzamiento
 		long inicio = System.currentTimeMillis();
-		System.out.println("Inicio del trabajo map/reduce: " + String.valueOf(inicio));
+		printTimestamp(inicio, "Inicio del trabajo map/reduce: ");
 		if (query == 1) {
 			executeFirstQuery(job);
 		} else if (query == 2) {
@@ -105,9 +108,19 @@ public class OneClient {
 			executeFourthQuery(job);
 		}
 		long fin = System.currentTimeMillis();
-		System.out.println("Fin del trabajo map/reduce: " + String.valueOf(fin));
-		System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
+		printTimestamp(fin, "Fin del trabajo map/reduce: ");
+		System.out.println("Tiempo del trabajo map/reduce en milisegundos: " + String.valueOf(fin - inicio));
+		System.out.println('\n');
 		System.exit(0);
+	}
+	
+	private static void printTimestamp(long timestamp, String message) {
+		Timestamp stamp = new Timestamp(timestamp);
+		Date date = new Date(stamp.getTime());
+		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSSS");
+		String formattedTime = output.format(date);
+		System.out.println(message + formattedTime);
+		System.out.println('\n');
 	}
 	
 	private static void executeFirstQuery(Job<String, ModelObject> job) 
