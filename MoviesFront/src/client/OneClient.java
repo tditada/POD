@@ -78,6 +78,7 @@ public class OneClient {
 
 		// Preparar la particion de datos y distribuirla en el cluster a trav�s del IMap
 		IMap<String, ModelObject> myMap = client.getMap(MAP_NAME);
+		myMap.clear();
 
 		try 
 		{
