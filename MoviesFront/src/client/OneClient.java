@@ -20,6 +20,9 @@ import com.hazelcast.mapreduce.JobCompletableFuture;
 import com.hazelcast.mapreduce.JobTracker;
 import com.hazelcast.mapreduce.KeyValueSource;
 
+import core.CoupleActorsCollator;
+import core.CoupleActorsMapper;
+import core.CoupleActorsReducer;
 import core.PopularActorsCollator;
 import core.PopularActorsMapper;
 import core.PopularActorsReducer;
@@ -191,6 +194,17 @@ public class OneClient {
 						e.getKey(), e.getValue() ));
 			}
 
+		} else if (query == 3) {
+			JobCompletableFuture<List<String>> future3 = job
+					.mapper(new CoupleActorsMapper())
+					.reducer(new CoupleActorsReducer())
+					.submit(new CoupleActorsCollator());
+			List<String> l  = future3.get();
+			System.out.println("resultados");
+			for (String s: l) {
+				System.out.println(s);
+				System.out.println('\n');
+			}
 		}
 		
 		System.exit(0);
