@@ -18,8 +18,8 @@ public class PopularActorsMapper implements Mapper<String, ModelObject, String, 
 	@Override
 	public void map(String keyinput, ModelObject valueinput, Context<String, Long> context) {
 
-		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
-				keyinput, valueinput));
+//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
+//				keyinput, valueinput));
 
 		
 		Long votes = valueinput.getImdbVotes();

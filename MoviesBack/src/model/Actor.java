@@ -7,7 +7,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
 
 
-//revisar si va dataserializable
 public class Actor implements DataSerializable, Comparable<Actor> {
 	
 	private String name;

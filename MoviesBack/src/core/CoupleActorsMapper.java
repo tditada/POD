@@ -18,8 +18,8 @@ public class CoupleActorsMapper implements Mapper<String, ModelObject, String, A
 
 	@Override
 	public void map(String keyinput, ModelObject valueinput, Context<String, ActorsCouple> context) {
-		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
-				keyinput, valueinput));
+//		System.out.println(String.format("Llega KeyInput: %s con ValueInput: %s", 
+//				keyinput, valueinput));
 		
 		List<String> list = valueinput.getActorsList();
 		List<String> combinations = combinations(list);

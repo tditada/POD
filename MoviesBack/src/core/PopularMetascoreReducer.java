@@ -29,11 +29,8 @@ public class PopularMetascoreReducer implements ReducerFactory<Integer, Movie, P
 			@Override
 			public void reduce(Movie movie) {
 				if (movie == null) {
-					System.out.println("movie null");
 					return;
 				}
-				System.out.println(movie.getMetaScore());
-				System.out.println(popularMovie.getMetaScore());
 				if (movie.getMetaScore() > popularMovie.getMetaScore()) {
 					popularMovie.setMetaScore(movie.getMetaScore());
 					popularMovie.resetTitles();
