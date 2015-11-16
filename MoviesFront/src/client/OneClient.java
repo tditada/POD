@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 
+import model.ActorCount;
 import model.ModelObject;
 import model.PopularMetascoreMovie;
 import service.ModelObjectReader;
@@ -23,6 +24,8 @@ import com.hazelcast.mapreduce.KeyValueSource;
 import core.CoupleActorsCollator;
 import core.CoupleActorsMapper;
 import core.CoupleActorsReducer;
+import core.DirectorsFavoritesMapper;
+import core.DirectorsFavoritesReducer;
 import core.PopularActorsCollator;
 import core.PopularActorsMapper;
 import core.PopularActorsReducer;
@@ -180,6 +183,9 @@ public class OneClient {
 			System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
 
 		} else if (query == 2) {
+			long inicio = System.currentTimeMillis();
+			System.out.println("Inicio del trabajo map/reduce: " + String.valueOf(inicio));
+			
 			JobCompletableFuture<Map<Integer, PopularMetascoreMovie>> future2 = job
 					.mapper(new PopularMetascoreMapper(tope))
 					.reducer(new PopularMetascoreReducer())
@@ -193,8 +199,14 @@ public class OneClient {
 				System.out.println(String.format("Year %d =>  %s",
 						e.getKey(), e.getValue() ));
 			}
+			long fin = System.currentTimeMillis();
+			System.out.println("Fin del trabajo map/reduce: " + String.valueOf(fin));
+			System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
 
 		} else if (query == 3) {
+			long inicio = System.currentTimeMillis();
+			System.out.println("Inicio del trabajo map/reduce: " + String.valueOf(inicio));
+			
 			JobCompletableFuture<List<String>> future3 = job
 					.mapper(new CoupleActorsMapper())
 					.reducer(new CoupleActorsReducer())
@@ -205,6 +217,29 @@ public class OneClient {
 				System.out.println(s);
 				System.out.println('\n');
 			}
+			long fin = System.currentTimeMillis();
+			System.out.println("Fin del trabajo map/reduce: " + String.valueOf(fin));
+			System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
+		} else if (query == 4) {
+			long inicio = System.currentTimeMillis();
+			System.out.println("Inicio del trabajo map/reduce: " + String.valueOf(inicio));
+			
+			JobCompletableFuture<Map<String, ActorCount>> future4 = job
+					.mapper(new DirectorsFavoritesMapper())
+					.reducer(new DirectorsFavoritesReducer())
+					.submit();
+
+			//Tomar resultado e Imprimirlo
+			Map<String, ActorCount> rta = future4.get();
+
+			for (Entry<String, ActorCount> e : rta.entrySet()) 
+			{
+				System.out.println(String.format("Director %s =>  %s",
+						e.getKey(), e.getValue() ));
+			}
+			long fin = System.currentTimeMillis();
+			System.out.println("Fin del trabajo map/reduce: " + String.valueOf(fin));
+			System.out.println("Tiempo del trabajo map/reduce: " + String.valueOf(fin - inicio));
 		}
 		
 		System.exit(0);
