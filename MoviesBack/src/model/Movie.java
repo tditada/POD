@@ -17,6 +17,7 @@ public class Movie implements DataSerializable{
 	}
 	
 	public Movie(String title, Double metaScore, int year) {
+		super();
 		this.title = title;
 		this.metaScore = metaScore;
 		this.year = year;

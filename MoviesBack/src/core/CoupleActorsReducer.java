@@ -21,7 +21,7 @@ public class CoupleActorsReducer implements ReducerFactory<String, ActorsCouple,
 			@Override
 			public void beginReduce() {
 				super.beginReduce();
-				actors = new ActorsCouple(inputKey);
+				actors = new ActorsCouple(inputKey, 0);
 			}
 
 			@Override
@@ -31,7 +31,6 @@ public class CoupleActorsReducer implements ReducerFactory<String, ActorsCouple,
 
 			@Override
 			public ActorsCouple finalizeReduce() {
-				System.out.println("count "+actors.getCount());
 				return actors;
 			}
 

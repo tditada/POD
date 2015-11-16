@@ -17,6 +17,7 @@ public class PopularMetascoreMovie implements DataSerializable{
 	}
 	
 	public PopularMetascoreMovie(int year) {
+		super();
 		this.metaScore = 0.0;
 		this.year = year;
 		this.titles = "";

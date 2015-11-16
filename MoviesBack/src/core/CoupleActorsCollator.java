@@ -11,7 +11,7 @@ import com.hazelcast.mapreduce.Collator;
 
 public class CoupleActorsCollator implements Collator<Map.Entry<String, ActorsCouple>, List<String>> {
 
-	private int maxCount = 0;
+	private Integer maxCount = 0;
 	
 	@Override
 	public List<String> collate(Iterable<Entry<String, ActorsCouple>> values) {
@@ -20,9 +20,7 @@ public class CoupleActorsCollator implements Collator<Map.Entry<String, ActorsCo
 		
 		for (Map.Entry<String, ActorsCouple> entry: values) {
 			ActorsCouple couple = entry.getValue();
-			System.out.println("en collator, count " + couple.getCount());
-			
-			if (couple.getCount() == maxCount) {
+			if (couple.getCount().equals(maxCount)) {
 				result.add(couple.toString() + " count: " + String.valueOf(maxCount));
 			} else if (couple.getCount() > maxCount) {
 				result.clear();

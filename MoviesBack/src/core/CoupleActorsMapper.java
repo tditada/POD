@@ -25,7 +25,7 @@ public class CoupleActorsMapper implements Mapper<String, ModelObject, String, A
 		List<String> combinations = combinations(list);
 		
 		for (String couple: combinations) {
-			ActorsCouple c = new ActorsCouple(couple);
+			ActorsCouple c = new ActorsCouple(couple, 0);
 			c.addMovie(valueinput.getTitle());
 			context.emit(couple, c);
 			System.out.println(String.format("Se emite (%s, %s)", 

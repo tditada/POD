@@ -10,41 +10,48 @@ public class ActorsCouple implements DataSerializable{
 
 	private String coupleNames;
 	private String movies;
-	private int count;
+	private Integer count;
 	
 	public ActorsCouple() {
 		
 	}
 	
-	public ActorsCouple(String names) {
+	public ActorsCouple(String names, Integer count) {
+		super();
 		this.coupleNames = names;
 		this.movies = "";
-		this.count = 0;
+		this.count = count;
 	}
 	
 	public String getMovies() {
 		return movies;
 	}
 	
-	public int getCount() {
+	public Integer getCount() {
 		return count;
+	}
+	
+	public String getCoupleNames() {
+		return coupleNames;
 	}
 	
 	@Override
 	public void readData(ObjectDataInput in) throws IOException {
 		this.coupleNames = in.readUTF();
 		this.movies = in.readUTF();
+		this.count = in.readInt();
 	}
 	
 	@Override
 	public void writeData(ObjectDataOutput out) throws IOException {
 		out.writeUTF(coupleNames);
 		out.writeUTF(movies);
+		out.writeInt(count);
 	}
 	
 	public void addMovie(String movie) {
 		this.movies += movie;
-		this.movies += " - ";
+		this.movies += "-";
 		this.count++;
 	}
 	
