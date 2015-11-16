@@ -21,11 +21,19 @@ public class CoupleActorsCollator implements Collator<Map.Entry<String, ActorsCo
 		for (Map.Entry<String, ActorsCouple> entry: values) {
 			ActorsCouple couple = entry.getValue();
 			if (couple.getCount().equals(maxCount)) {
-				result.add(couple.toString() + " count: " + String.valueOf(maxCount));
+				StringBuilder builder = new StringBuilder();
+				builder.append(couple.toString());
+				builder.append(" count: ");
+				builder.append(maxCount);
+				result.add(builder.toString());
 			} else if (couple.getCount() > maxCount) {
 				result.clear();
 				maxCount = couple.getCount();
-				result.add(couple.toString() + " count: " + String.valueOf(maxCount));
+				StringBuilder builder = new StringBuilder();
+				builder.append(couple.toString());
+				builder.append(" count: ");
+				builder.append(maxCount);
+				result.add(builder.toString());
 			}
 		}
 		

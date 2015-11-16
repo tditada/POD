@@ -42,11 +42,11 @@ public class CoupleActorsMapper implements Mapper<String, ModelObject, String, A
 			for (int j = i+1 ; j < list.size(); j++) {
 				String one = list.get(i);
 				String two = list.get(j);
-				String c = "";
+				String c = null;
 				if (one.compareTo(two) <= 0) {
-					c = one + " + " + two;
+					c = new StringBuilder().append(one).append(" + ").append(two).toString();
 				} else if (one.compareTo(two) > 0) {
-					c = two + " + " + one;
+					c = new StringBuilder().append(two).append(" + ").append(one).toString();
 				}
 				combin.add(c);
 			}

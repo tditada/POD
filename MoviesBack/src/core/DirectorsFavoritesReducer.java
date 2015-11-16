@@ -22,14 +22,14 @@ public class DirectorsFavoritesReducer implements ReducerFactory<String, String,
 
 				Map<String, Integer> actorsCountMap;
 				Integer maxCount;
-				String names;
+				StringBuilder names;
 
 				@Override
 				public void beginReduce() {
 					super.beginReduce();
 					actorsCountMap = new HashMap<>();
 					maxCount = 0;
-					names = "";
+					names = new StringBuilder();
 				}
 
 				@Override
@@ -49,14 +49,14 @@ public class DirectorsFavoritesReducer implements ReducerFactory<String, String,
 						int count = actorsCountMap.get(actor);
 						if (count > maxCount) {
 							maxCount = count;
-							names = "";
-							names += actor;
+							names = new StringBuilder();
+							names.append(actor);
 						} else if (count == maxCount) {
-							names += " - ";
-							names += actor;
+							names.append(" - ");
+							names.append(actor);
 						}
 					}
-					return new ActorCount(names, maxCount);
+					return new ActorCount(names.toString(), maxCount);
 				}
 
 			};
